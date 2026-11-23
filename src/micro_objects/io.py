@@ -26,3 +26,22 @@ def publish(path,result):
         os.link(temporary,target)
     finally:
         if temporary is not None:temporary.unlink(missing_ok=True)
+
+
+def save_delta(path,payload):
+    """Atomically write a self-contained increment document as canonical JSON."""
+    from .delta import canonical_bytes
+    target=Path(path);target.parent.mkdir(parents=True,exist_ok=True);temporary=None
+    try:
+        with tempfile.NamedTemporaryFile(dir=target.parent,prefix='.delta-',delete=False) as f:
+            temporary=Path(f.name);f.write(canonical_bytes(payload)+b'\n');f.flush();os.fsync(f.fileno())
+        os.replace(temporary,target)
+    finally:
+        if temporary is not None:temporary.unlink(missing_ok=True)
+
+
+def load_delta(path):
+    """Read an increment document; content validation happens in parse_delta."""
+    with open(path,'rb') as f:raw=f.read(8000001)
+    if len(raw)>8000000:raise ValueError('delta over 8MB')
+    return json.loads(raw.decode('utf-8'),object_pairs_hook=pairs,parse_constant=constant)
