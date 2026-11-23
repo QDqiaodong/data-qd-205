@@ -1,4 +1,8 @@
 """Domain data processing API; synthetic offline baseline."""
+from .dataset import (BLIND, NEGATIVE, NO_COMPLETE_OBJECT,
+                      NO_VISIBLE_BACKGROUND, POSITIVE, VISIBLE_FOREGROUND,
+                      CompiledDataset, DatasetCompileError,
+                      apply_calibration, compile_dataset, parse_calibration)
 from .delta import (DeltaError, build_delta, build_records, canonical_bytes,
                     digest, manifest_digest, parse_delta, record_digest)
 from .service import process
@@ -14,4 +18,8 @@ __all__ = [
     'DeltaError',
     'ReviewStore', 'StoreError', 'DatasetMismatch', 'StaleVersion',
     'DeltaRejected', 'ReviewRejected',
+    'compile_dataset', 'CompiledDataset', 'DatasetCompileError',
+    'apply_calibration', 'parse_calibration',
+    'POSITIVE', 'NEGATIVE', 'BLIND',
+    'NO_COMPLETE_OBJECT', 'VISIBLE_FOREGROUND', 'NO_VISIBLE_BACKGROUND',
 ]
