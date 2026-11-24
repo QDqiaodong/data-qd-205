@@ -14,6 +14,21 @@ from .dataset import (BLIND, NEGATIVE, NO_COMPLETE_OBJECT,
                       apply_calibration, compile_dataset, parse_calibration)
 from .delta import (DeltaError, build_delta, build_records, canonical_bytes,
                     digest, manifest_digest, parse_delta, record_digest)
+from .region import (REGION_DELIVERY_FORMAT, REGION_MISSING,
+                      REGION_OBSERVED, RegionAttributionError,
+                      RegionBatchDelivery, RegionBatchError,
+                      RegionCompileError, RegionDelivery,
+                      RegionDeliveryError, RegionError,
+                      RegionValidationError, assign_regions,
+                      attribute_objects, attribute_objects_to_regions,
+                      attribute_regions, build_region_attribution,
+                      build_region_delivery, compile_region_batch,
+                      compile_region_delivery, compile_regions,
+                      create_region_delivery, deliver_region_attribution,
+                      deliver_region_attributions, deliver_region_batch,
+                      deliver_regions, process_region_batch,
+                      process_regions, region_delivery,
+                      summarize_regions, verify_region_delivery)
 from .service import process
 from .store import (DatasetMismatch, DeltaRejected, ReviewRejected,
                     ReviewStore, StaleVersion, StoreError)
@@ -21,6 +36,18 @@ from .tiles import compile_snapshot, parse_snapshot
 
 __all__ = [
     'process',
+    'deliver_regions', 'attribute_regions', 'attribute_objects',
+    'attribute_objects_to_regions', 'assign_regions',
+    'deliver_region_batch', 'deliver_region_attribution',
+    'deliver_region_attributions', 'build_region_delivery',
+    'build_region_attribution', 'compile_region_delivery',
+    'compile_region_batch', 'compile_regions', 'create_region_delivery',
+    'region_delivery', 'process_regions', 'process_region_batch',
+    'summarize_regions', 'verify_region_delivery',
+    'RegionDelivery', 'RegionBatchDelivery', 'RegionDeliveryError',
+    'RegionError', 'RegionValidationError', 'RegionBatchError',
+    'RegionCompileError', 'RegionAttributionError',
+    'REGION_DELIVERY_FORMAT', 'REGION_OBSERVED', 'REGION_MISSING',
     'build_archive', 'ArchiveReader', 'ArchiveError', 'ARCHIVE_FORMAT',
     'APPROVED', 'NOT_REQUESTED', 'INSUFFICIENT_BUDGET',
     'compile_snapshot', 'parse_snapshot',

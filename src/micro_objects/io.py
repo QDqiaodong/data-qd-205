@@ -90,6 +90,22 @@ def save_group_delivery(path, document):
     _save_canonical(path, parse_group_delivery(document))
 
 
+def save_region_delivery(path, delivery):
+    """Atomically write a verified region batch delivery as canonical JSON."""
+    from .region import verify_region_delivery
+    verify_region_delivery(delivery, raise_on_error=True)
+    _save_canonical(path, delivery)
+
+
+def load_region_delivery(path):
+    """Read and conservation-check a saved region batch delivery."""
+    from .region import verify_region_delivery
+    document = _load_delivery(path)
+    if not verify_region_delivery(document):
+        raise ValueError('invalid region delivery conservation totals')
+    return document
+
+
 def _load_delivery(path):
     with open(path,'rb') as f:raw=f.read(8000001)
     if len(raw)>8000000:raise ValueError('delivery document over 8MB')
