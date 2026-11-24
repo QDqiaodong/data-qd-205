@@ -65,3 +65,44 @@ def load_calibration(path):
     with open(path,'rb') as f:raw=f.read(8000001)
     if len(raw)>8000000:raise ValueError('calibration over 8MB')
     return json.loads(raw.decode('utf-8'),object_pairs_hook=pairs,parse_constant=constant)
+
+
+def _save_canonical(path, payload):
+    from .delta import canonical_bytes
+    target=Path(path);target.parent.mkdir(parents=True,exist_ok=True);temporary=None
+    try:
+        with tempfile.NamedTemporaryFile(dir=target.parent,prefix='.delivery-',delete=False) as f:
+            temporary=Path(f.name);f.write(canonical_bytes(payload)+b'\n');f.flush();os.fsync(f.fileno())
+        os.replace(temporary,target)
+    finally:
+        if temporary is not None:temporary.unlink(missing_ok=True)
+
+
+def save_grade_delivery(path, document):
+    """Atomically write the consumable grade table as canonical JSON."""
+    from .correspondence import parse_grade_delivery
+    _save_canonical(path, parse_grade_delivery(document))
+
+
+def save_group_delivery(path, document):
+    """Atomically write the consumable group-total table as canonical JSON."""
+    from .correspondence import parse_group_delivery
+    _save_canonical(path, parse_group_delivery(document))
+
+
+def _load_delivery(path):
+    with open(path,'rb') as f:raw=f.read(8000001)
+    if len(raw)>8000000:raise ValueError('delivery document over 8MB')
+    return json.loads(raw.decode('utf-8'),object_pairs_hook=pairs,parse_constant=constant)
+
+
+def load_grade_delivery(path):
+    """Read and strictly validate a grade table without masks or evidence."""
+    from .correspondence import parse_grade_delivery
+    return parse_grade_delivery(_load_delivery(path))
+
+
+def load_group_delivery(path):
+    """Read and strictly validate a group-total table without masks or evidence."""
+    from .correspondence import parse_group_delivery
+    return parse_group_delivery(_load_delivery(path))

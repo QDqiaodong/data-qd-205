@@ -1,4 +1,10 @@
 """Domain data processing API; synthetic offline baseline."""
+from .correspondence import (CORRESPONDENCE_FORMAT, DIAGNOSTICS_FORMAT,
+                             GRADE_CONFLICT, GRADE_DELIVERY_FORMAT,
+                             GROUP_DELIVERY_FORMAT, NO_MATCH,
+                             POSSIBLY_UNMATCHED, CorrespondenceError,
+                             deliver_correspondence, parse_grade_delivery,
+                             parse_group_delivery)
 from .dataset import (BLIND, NEGATIVE, NO_COMPLETE_OBJECT,
                       NO_VISIBLE_BACKGROUND, POSITIVE, VISIBLE_FOREGROUND,
                       CompiledDataset, DatasetCompileError,
@@ -22,4 +28,9 @@ __all__ = [
     'apply_calibration', 'parse_calibration',
     'POSITIVE', 'NEGATIVE', 'BLIND',
     'NO_COMPLETE_OBJECT', 'VISIBLE_FOREGROUND', 'NO_VISIBLE_BACKGROUND',
+    'deliver_correspondence', 'parse_grade_delivery', 'parse_group_delivery',
+    'CorrespondenceError',
+    'NO_MATCH', 'POSSIBLY_UNMATCHED', 'GRADE_CONFLICT',
+    'CORRESPONDENCE_FORMAT', 'GRADE_DELIVERY_FORMAT',
+    'GROUP_DELIVERY_FORMAT', 'DIAGNOSTICS_FORMAT',
 ]
