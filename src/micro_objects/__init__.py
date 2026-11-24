@@ -1,4 +1,7 @@
 """Domain data processing API; synthetic offline baseline."""
+from .archive import (APPROVED, ARCHIVE_FORMAT, INSUFFICIENT_BUDGET,
+                      NOT_REQUESTED, ArchiveError, ArchiveReader,
+                      build_archive)
 from .correspondence import (CORRESPONDENCE_FORMAT, DIAGNOSTICS_FORMAT,
                              GRADE_CONFLICT, GRADE_DELIVERY_FORMAT,
                              GROUP_DELIVERY_FORMAT, NO_MATCH,
@@ -18,6 +21,8 @@ from .tiles import compile_snapshot, parse_snapshot
 
 __all__ = [
     'process',
+    'build_archive', 'ArchiveReader', 'ArchiveError', 'ARCHIVE_FORMAT',
+    'APPROVED', 'NOT_REQUESTED', 'INSUFFICIENT_BUDGET',
     'compile_snapshot', 'parse_snapshot',
     'build_delta', 'build_records', 'parse_delta',
     'canonical_bytes', 'digest', 'record_digest', 'manifest_digest',
