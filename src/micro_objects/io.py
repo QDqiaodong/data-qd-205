@@ -122,3 +122,27 @@ def load_group_delivery(path):
     """Read and strictly validate a group-total table without masks or evidence."""
     from .correspondence import parse_group_delivery
     return parse_group_delivery(_load_delivery(path))
+
+
+def save_task_package(path, package):
+    """Validate and atomically save a sampling task package."""
+    from .sampling import save_task_package as _save_task_package
+    return _save_task_package(path, package)
+
+
+def load_task_package(path):
+    """Read and validate a sampling task package without board data."""
+    from .sampling import load_task_package as _load_task_package
+    return _load_task_package(path)
+
+
+def save_survey_estimate(path, estimate):
+    """Atomically save a sampling estimate using exact fraction strings."""
+    from .sampling import save_survey_estimate as _save_survey_estimate
+    return _save_survey_estimate(path, estimate)
+
+
+def load_survey_estimate(path):
+    """Load exact fraction strings from a saved sampling estimate."""
+    from .sampling import load_survey_estimate as _load_survey_estimate
+    return _load_survey_estimate(path)
